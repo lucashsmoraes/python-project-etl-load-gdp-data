@@ -38,3 +38,20 @@ Você precisa concluir as seguintes tarefas para este projeto
 4. Execute a consulta necessária no banco de dados.
 5. Registre o progresso do código com registros de data e hora apropriados.
 
+## Configuração inicial
+Antes de começar a construir o código, você precisa instalar as bibliotecas necessárias para ele.
+
+As bibliotecas necessárias para o código são as seguintes:
+
+1. `requests`- A biblioteca usada para acessar as informações da URL.
+
+2. `bs4`- A biblioteca que contém a BeautifulSoupfunção usada para webscraping.
+
+3. `pandas`- A biblioteca usada para processar os dados extraídos, armazená-los nos formatos necessários e se comunicar com os bancos de dados.
+
+4. `sqlite3`- A biblioteca necessária para criar uma conexão com o servidor de banco de dados.
+
+5. `numpy`- A biblioteca necessária para a operação de arredondamento matemático conforme exigido nos objetivos.
+
+6. `datetime`- A biblioteca que contém a função datetimeusada para extrair o registro de data e hora para fins de registro.
+
