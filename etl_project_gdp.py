@@ -50,7 +50,8 @@ def transform(df):
 Função responsável por salvar o dataframe final como um arquivo `CSV`
 no caminho fornecido. A função não retorna nada.
 '''
-# def load_to_csv(df, csv_path):
+def load_to_csv(df, csv_path):
+    df.to_csv(csv_path)
 
 
 '''
