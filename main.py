@@ -1,4 +1,5 @@
-from etl_project_gdp import extract, transform, load_to_csv
+from etl_project_gdp import extract, transform, load_to_csv, load_to_db
+import sqlite3
 
 '''
 1 - URL 
@@ -17,4 +18,6 @@ if __name__ == '__main__':
     df = extract(url, table_attribs)
     df = transform(df)
     load_to_csv(df, csv_path)
+    sql_connection = sqlite3.connect('World_Economies.db')
+    load_to_db(df, sql_connection, table_name)
 

@@ -2,7 +2,6 @@ from bs4 import BeautifulSoup
 import requests as req
 import pandas as pd
 import numpy as np
-import sqlite3
 from datetime import datetime
 
 '''
@@ -38,11 +37,11 @@ def extract(url, table_attribs):
 
 
 def transform(df):
-    gdp_list = df["GDP_USD_millions"].tolist()                          # transformando a coluna em uma lista
-    gdp_list = [float("".join(x.split(','))) for x in gdp_list]         # convertendo o texto da moeda em texto númerico
-    gdp_list = [np.round(x / 1000, 2) for x in gdp_list]        # dividindo por 1000 e arredondando
-    df["GDP_USD_millions"] = gdp_list                                   # reecriando o dataframe
-    df = df.rename(columns={"GDP_USD_millions": "GDP_USD_billions"})    # renomeando a coluna
+    gdp_list = df["GDP_USD_millions"].tolist()  # transformando a coluna em uma lista
+    gdp_list = [float("".join(x.split(','))) for x in gdp_list]  # convertendo o texto da moeda em texto númerico
+    gdp_list = [np.round(x / 1000, 2) for x in gdp_list]  # dividindo por 1000 e arredondando
+    df["GDP_USD_millions"] = gdp_list  # reecriando o dataframe
+    df = df.rename(columns={"GDP_USD_millions": "GDP_USD_billions"})  # renomeando a coluna
     return df
 
 
@@ -50,6 +49,8 @@ def transform(df):
 Função responsável por salvar o dataframe final como um arquivo `CSV`
 no caminho fornecido. A função não retorna nada.
 '''
+
+
 def load_to_csv(df, csv_path):
     df.to_csv(csv_path)
 
@@ -58,7 +59,11 @@ def load_to_csv(df, csv_path):
 Função responsável por salvar o dataframe final na tabela do banco de dados
 com o nome fornecido. A função não retorna nada
 '''
-# def load_to_db(df, sql_connection, table_name):
+
+
+def load_to_db(df, sql_connection, table_name):
+    df.to_sql(table_name, sql_connection, if_exists='replace', index=False)
+
 
 '''
 Função responsável por fazer consulta na tabela do banco de dados e
