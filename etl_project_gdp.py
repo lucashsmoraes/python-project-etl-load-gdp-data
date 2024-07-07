@@ -4,26 +4,30 @@ import pandas as pd
 import numpy as np
 import sqlite3
 from datetime import datetime
-'''
-1 - URL 
-2 - table_attribs: Os atributos ou nomes de colunas para o dataframe armazenado com uma lista.
-3 - db_name: 'World_Economies.db'
-4 - table_name: 'Countries_by_GDP'
-5 - csv_path: 'Countries_by_GDP.csv'
-'''
-url = 'https://web.archive.org/web/20230902185326/https://en.wikipedia.org/wiki/List_of_countries_by_GDP_%28nominal%29'
-table_attribs = ["Country", "GDP_USD_millions"]
-db_name = 'World_Economies.db'
-table_name = 'Countries_by_GDP'
-csv_path = './Countries_by_GDP.csv'
 
 '''
  Função responsável por extrair informações necessárias do site e savar
  em um dataframe. A função deverá retornar o dataframe para o processamento
  posterior
 '''
+
+
 def extract(url, table_attribs):
+    page = req.get(url).text
+    data = BeautifulSoup(page, 'html.parser')
+    df = pd.DataFrame(columns=table_attribs)
+    tables = data.find_all('tbody')
+    rows = tables[2].find_all('tr')
+    for row in rows:
+        col = row.find_all('td')
+        if len(col) != 0:
+            if col[0].find('a') is not None and '—' not in col[2]:
+                data_dict = {"Country": col[0].a.contents[0],
+                             "GDP_USD_millions": col[1].contents[0]}
+                df1 = pd.DataFrame(data_dict, index=[0])
+                df = pd.concat([df, df1], ignore_index=True)
     return df
+
 
 '''
  Função responsável por converter as informações do PIB do formato Moeda
@@ -31,6 +35,8 @@ def extract(url, table_attribs):
  para USD (Bilhões) arredondando para 2 casas decimais. A função retorna
  o dataframe transformado.
 '''
+
+
 def transform(df):
     return df
 
@@ -39,23 +45,23 @@ def transform(df):
 Função responsável por salvar o dataframe final como um arquivo `CSV`
 no caminho fornecido. A função não retorna nada.
 '''
-def load_to_csv(df, csv_path):
+# def load_to_csv(df, csv_path):
 
 
 '''
 Função responsável por salvar o dataframe final na tabela do banco de dados
 com o nome fornecido. A função não retorna nada
 '''
-def load_to_db(df, sql_connection, table_name):
+# def load_to_db(df, sql_connection, table_name):
 
 '''
 Função responsável por fazer consulta na tabela do banco de dados e
 imprime a saída no terminal. A função não retorna nada
 '''
-def run_query(query_statement, sql_connection):
+# def run_query(query_statement, sql_connection):
 
 '''
 Função responsável por registrar a mensagem logada em um determinado
 estágio da execução do código em um arquivo de log. A função não retorna nada
 '''
-def log_progress(message):
+# def log_progress(message):
