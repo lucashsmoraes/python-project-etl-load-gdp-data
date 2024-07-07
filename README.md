@@ -55,3 +55,11 @@ As bibliotecas necessárias para o código são as seguintes:
 
 6. `datetime`- A biblioteca que contém a função datetimeusada para extrair o registro de data e hora para fins de registro.
 
+Embora `request`, `sqlite3`, e `datetime` venham junto com `python`, as outras bibliotecas terão que ser instaladas.
+
+```pip
+python3.11 -m pip install pandas
+python3.11 -m pip install numpy
+python3.11 -m pip install bs4
+```
+
