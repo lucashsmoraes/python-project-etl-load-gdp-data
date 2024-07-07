@@ -1,4 +1,4 @@
-from etl_project_gdp import extract, transform, load_to_csv, load_to_db
+from etl_project_gdp import extract, transform, load_to_csv, load_to_db, run_query
 import sqlite3
 
 '''
@@ -20,4 +20,6 @@ if __name__ == '__main__':
     load_to_csv(df, csv_path)
     sql_connection = sqlite3.connect('World_Economies.db')
     load_to_db(df, sql_connection, table_name)
+    query_statement = f"SELECT * from {table_name} WHERE GDP_USD_billions >= 28780"
+    run_query(query_statement, sql_connection)
 

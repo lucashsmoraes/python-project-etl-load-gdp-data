@@ -69,7 +69,13 @@ def load_to_db(df, sql_connection, table_name):
 Função responsável por fazer consulta na tabela do banco de dados e
 imprime a saída no terminal. A função não retorna nada
 '''
-# def run_query(query_statement, sql_connection):
+
+
+def run_query(query_statement, sql_connection):
+    print(query_statement)
+    query_output = pd.read_sql_query(query_statement, sql_connection)
+    print(query_output)
+
 
 '''
 Função responsável por registrar a mensagem logada em um determinado
