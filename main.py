@@ -1,4 +1,4 @@
-from etl_project_gdp import extract
+from etl_project_gdp import extract, transform
 
 '''
 1 - URL 
@@ -14,4 +14,5 @@ table_name = 'Countries_by_GDP'
 csv_path = './Countries_by_GDP.csv'
 
 if __name__ == '__main__':
-    print(extract(url, table_attribs))
+    df = extract(url, table_attribs)
+    print(transform(df))

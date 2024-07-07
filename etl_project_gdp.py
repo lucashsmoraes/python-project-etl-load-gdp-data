@@ -21,7 +21,7 @@ def extract(url, table_attribs):
     for row in rows:
         col = row.find_all('td')
         if len(col) != 0:
-            if col[0].find('a') is not None and '—' not in col[2]:
+            if col[0].find('a') is not None and '—' not in col[1]:
                 data_dict = {"Country": col[0].a.contents[0],
                              "GDP_USD_millions": col[1].contents[0]}
                 df1 = pd.DataFrame(data_dict, index=[0])
@@ -38,6 +38,11 @@ def extract(url, table_attribs):
 
 
 def transform(df):
+    gdp_list = df["GDP_USD_millions"].tolist()                          # transformando a coluna em uma lista
+    gdp_list = [float("".join(x.split(','))) for x in gdp_list]         # convertendo o texto da moeda em texto númerico
+    gdp_list = [np.round(x / 1000, 2) for x in gdp_list]        # dividindo por 1000 e arredondando
+    df["GDP_USD_millions"] = gdp_list                                   # reecriando o dataframe
+    df = df.rename(columns={"GDP_USD_millions": "GDP_USD_billions"})    # renomeando a coluna
     return df
 
 
